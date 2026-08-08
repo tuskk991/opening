@@ -6,31 +6,30 @@
     <title>https://tusk1991.com</title>
     <style>
         :root {
-            --c1: #FF3385; 
-            --c2: #FF007F; 
-            --c3: #FF80BF; 
-            --c4: #000088; 
+            /* 主色系：鮮艷群青底板 x 桃紅文字 */
+            --c1: #FF3385; /* 霓虹桃紅（標題、高亮文字、主要內文） */
+            --c2: #FF007F; /* 電子病嬌粉（重點高亮、警告、按鈕） */
+            --c3: #FF80BF; /* 淡桃紅（次要輔助字體） */
+            --c4: #000088; /* 視窗標題欄深群青 */
             
-            --bg: #03050A; 
-            --win-bg: rgba(0, 0, 198, 0.92); 
-            --win-bg-solid: #0000C6; 
-            --border-light: #3333FF; 
+            /* 群青色大格子與底板 */
+            --bg: #03050A; /* 宇宙極黑背景 */
+            --win-bg: rgba(0, 0, 198, 0.92); /* 半透明群青色大格子底板 (#0000C6) */
+            --win-bg-solid: #0000C6; /* 純群青色底板 (#0000C6) */
+            --border-light: #3333FF; /* 群青邊框發光線 */
             
-            --text-main: #FF3385; 
-            --text-muted: #FF80BF; 
+            /* 文字顏色：全螢光桃紅 */
+            --text-main: #FF3385; /* 桃紅內文 */
+            --text-muted: #FF80BF; /* 淡桃紅系統文字 */
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            /* 套用加粗仿宋體 */
             font-family: "FangSong", "仿宋", "FangSong_GB2312", "STFangsong", serif;
             font-weight: bold;
-            cursor: url('click.png') 0 0, auto;
-        }
-
-        a, button, input, .fandom-item, .envelope-item, .social-link-item, .casino-ad-btn, .custom-start-btn, .gal-dialog-box, [onclick] {
-            cursor: url('click2.png') 4 2, pointer;
         }
 
         body {
@@ -45,35 +44,12 @@
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
-            padding: 20px 10px 80px 10px;
+            padding: 20px 10px;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* --- 飄動文字容器 (DVD 彈跳層：只顯示指定字句) --- */
-        #dvd-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 999;
-            overflow: hidden;
-        }
-
-        .dvd-text-item {
-            position: absolute;
-            font-size: 1.2rem;
-            color: #FF3333;
-            text-shadow: 0 0 8px rgba(255, 0, 0, 0.8), 2px 2px 2px #000;
-            white-space: nowrap;
-            user-select: none;
-            font-family: "FangSong", "仿宋", serif;
-            letter-spacing: 2px;
-        }
-
-        /* --- CRT 螢幕掃描線濾鏡 --- */
+        /* --- CRT 螢幕掃描線濾鏡 (Scanline Effect) --- */
         body::before {
             content: " ";
             display: block;
@@ -81,7 +57,7 @@
             top: 0; left: 0; bottom: 0; right: 0;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
             background-size: 100% 4px;
-            z-index: 9998;
+            z-index: 9999;
             pointer-events: none;
             opacity: 0.6;
         }
@@ -92,7 +68,7 @@
             top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(3, 5, 10, 0.88);
             backdrop-filter: blur(6px);
-            z-index: 1000;
+            z-index: 999;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -161,13 +137,13 @@
             box-shadow: 1px 1px 0px #000;
         }
 
-        /* --- 信封彈窗 --- */
+        /* --- 信封彈窗 (Envelope Modal) --- */
         #envelope-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(3, 5, 10, 0.9);
             backdrop-filter: blur(8px);
-            z-index: 1002;
+            z-index: 1000;
             display: none;
             justify-content: center;
             align-items: center;
@@ -181,6 +157,12 @@
             max-width: 550px;
             width: 100%;
             padding: 4px;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .envelope-body {
@@ -212,6 +194,7 @@
             pointer-events: auto;
         }
 
+        /* 頂部 URL 與 Banner */
         .url-bar {
             background: var(--win-bg-solid);
             border: 1px solid var(--c1);
@@ -245,6 +228,7 @@
             object-position: left 30%;
         }
 
+        /* 雙欄核心排版 */
         .content-columns {
             display: flex;
             gap: 20px;
@@ -260,11 +244,17 @@
 
         .right-col {
             flex: 0.8;
+            border: 1px solid var(--c1);
+            background: var(--win-bg);
+            padding: 15px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 10px;
+            box-shadow: 4px 4px 0px #000, 0 0 12px rgba(255, 51, 133, 0.2);
+            backdrop-filter: blur(4px);
         }
 
+        /* 群青色 Profile 大格子 */
         .profile-container {
             border: 1px solid var(--c1);
             background: var(--win-bg);
@@ -331,13 +321,12 @@
 
         .profile-desc {
             font-size: 0.85rem;
-            color: #c7d4ff;
+            color: var(--text-main);
             line-height: 1.6;
         }
 
         .profile-desc p {
             margin-bottom: 8px;
-            white-space: pre-line;
         }
 
         .profile-desc p:last-child {
@@ -356,6 +345,7 @@
             gap: 4px;
         }
 
+        /* 標籤群組區塊（增加群青底板） */
         .tag-box {
             border: 1px solid var(--c1);
             background: var(--win-bg);
@@ -382,7 +372,7 @@
         .kv-tag {
             border: 1px solid var(--c1);
             background: rgba(255, 51, 133, 0.2);
-            color: #85a1ff;
+            color: var(--c1);
             padding: 4px 8px;
             font-size: 0.78rem;
             box-shadow: 0 0 5px rgba(255, 51, 133, 0.2);
@@ -391,80 +381,82 @@
         .vibe-tag {
             border: 1px solid var(--c2);
             background: rgba(255, 0, 127, 0.25);
-            color: #85fbff;
+            color: #FF80BF;
             padding: 4px 8px;
             font-size: 0.78rem;
             box-shadow: 0 0 5px rgba(255, 0, 127, 0.3);
         }
 
-        .detail-box {
-            border: 1px solid var(--c1);
+        /* Don't 群青色區塊 */
+        .dont-box {
+            border: 1px solid var(--c2);
             background: var(--win-bg);
             padding: 15px;
-            box-shadow: 4px 4px 0px #000, 0 0 12px rgba(255, 51, 133, 0.2);
-            backdrop-filter: blur(4px);
-            font-size: 0.85rem;
-            color: #c7d4ff;
-            line-height: 1.7;
-        }
-
-        .detail-box p {
-            margin-bottom: 10px;
-            white-space: pre-line;
-        }
-
-        .detail-box p:last-child {
-            margin-bottom: 0;
-        }
-
-        .detail-divider {
-            color: var(--c3);
-            text-align: center;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            margin: 12px 0;
-            opacity: 0.8;
-        }
-
-        .dont-box {
-            border: 1px solid #ecbfff;
-            background: #8f3c73;
-            padding: 15px;
-            box-shadow: 4px 4px 0px #000, 0 0 10px rgba(143, 60, 115, 0.3);
+            box-shadow: 4px 4px 0px #000, 0 0 10px rgba(255, 0, 127, 0.3);
         }
 
         .dont-box h3 {
-            color: #ecbfff;
+            color: var(--c2);
             font-size: 0.95rem;
             margin-bottom: 10px;
             letter-spacing: 2px;
-            text-align: center;
         }
 
         .dont-box ul {
             list-style: none;
             font-size: 0.82rem;
-            color: #ecbfff;
-            text-align: center;
-            padding-left: 0;
+            color: var(--c1);
         }
 
         .dont-box li {
             margin-bottom: 8px;
+            padding-left: 15px;
             position: relative;
         }
 
-        .fandom-container, .social-links-box, .casino-container {
-            border: 1px solid var(--c1);
-            background: var(--win-bg);
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            box-shadow: 4px 4px 0px #000, 0 0 12px rgba(255, 51, 133, 0.2);
-            backdrop-filter: blur(4px);
+        .dont-box li::before {
+            content: "✕";
+            position: absolute;
+            left: 0;
+            color: var(--c2);
         }
 
+        /* START 按鈕 */
+        .start-section {
+            text-align: center;
+            padding: 25px 0 10px 0;
+            border-top: 1px dashed var(--border-light);
+        }
+
+        .ready-text {
+            font-size: 1.1rem;
+            color: var(--c1);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .start-btn {
+            background: var(--c2);
+            color: #fff;
+            border: 2px solid var(--c1);
+            font-size: 1.4rem;
+            padding: 10px 35px;
+            cursor: pointer;
+            letter-spacing: 4px;
+            box-shadow: 4px 4px 0px #000, 0 0 15px rgba(255, 0, 127, 0.5);
+            transition: all 0.1s;
+            text-shadow: 0 0 5px #000;
+        }
+
+        .start-btn:hover {
+            background: var(--c1);
+            color: #000;
+            text-shadow: none;
+            transform: translate(-2px, -2px);
+            box-shadow: 2px 2px 0px #000, 0 0 20px rgba(255, 51, 133, 0.9);
+        }
+
+        /* 右欄：坑清單 */
         .fandom-list {
             display: flex;
             flex-direction: column;
@@ -479,6 +471,7 @@
             padding: 6px 10px;
             font-size: 0.8rem;
             text-decoration: none;
+            cursor: pointer;
             transition: all 0.15s ease;
             position: relative;
             white-space: nowrap;
@@ -494,6 +487,7 @@
             box-shadow: -4px 0 0 var(--c1), 0 0 10px rgba(255, 0, 127, 0.6);
         }
 
+        /* 信封按鈕樣式 */
         .envelope-item {
             display: flex;
             align-items: center;
@@ -505,6 +499,7 @@
             padding: 8px;
             font-size: 0.85rem;
             margin-top: 10px;
+            cursor: pointer;
             transition: all 0.2s ease;
             letter-spacing: 1px;
         }
@@ -516,142 +511,24 @@
             box-shadow: 0 0 15px rgba(255, 51, 133, 0.8);
         }
 
-        /* --- 古早賭場風格閃爍按鈕 --- */
-        .casino-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .casino-ad-btn {
-            display: block;
-            text-align: center;
-            text-decoration: none;
-            padding: 10px 12px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            border: 2px dashed #ffff00;
-            background: #ff0000;
-            color: #ffff00;
-            box-shadow: 3px 3px 0px #000, inset 0 0 10px rgba(255, 255, 0, 0.5);
-            animation: casinoFlash 0.4s infinite alternate steps(2);
-            transition: transform 0.1s;
-        }
-
-        .casino-ad-btn:hover {
-            transform: scale(1.03);
-            filter: brightness(1.3);
-        }
-
-        @keyframes casinoFlash {
-            0% {
-                background: #ff0000;
-                color: #ffff00;
-                border-color: #ffff00;
-                box-shadow: 3px 3px 0px #000, 0 0 15px #ff0000;
-            }
-            50% {
-                background: #0000ff;
-                color: #00ffff;
-                border-color: #00ffff;
-                box-shadow: 3px 3px 0px #000, 0 0 15px #0000ff;
-            }
-            100% {
-                background: #ffff00;
-                color: #ff00ff;
-                border-color: #ff00ff;
-                box-shadow: 3px 3px 0px #000, 0 0 15px #ffff00;
-            }
-        }
-
-        /* --- SNS 傳送門按鈕樣式 --- */
-        .social-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .social-link-item {
-            display: block;
-            background: #46cfeb;
-            border: 1px solid var(--border-light);
-            color: #000088;
-            padding: 12px;
-            font-size: 0.9rem;
-            text-align: center;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-        }
-
-        .social-link-item:hover {
-            background: var(--c2);
-            color: #fff;
-            border-color: #fff;
-            box-shadow: 0 0 12px rgba(255, 0, 127, 0.8);
-            transform: scale(1.02);
-        }
-
-        /* --- 第四個按鈕專屬：超大力逃跑、完全點不到、無功能 --- */
-        .social-link-item.runaway {
-            position: relative;
-            transition: transform 0.08s ease-out;
-            user-select: none;
-            z-index: 50;
-        }
-
-        .social-link-item.runaway:hover {
-            transform: none;
-            background: var(--c2);
-            color: #fff;
-            border-color: #fff;
-            box-shadow: 0 0 12px rgba(255, 0, 127, 0.8);
-        }
-
-        .wobble-avatar-container {
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            width: 140px;
-            z-index: 10;
-            pointer-events: auto;
-            transform-origin: top center;
-            animation: cuteWobble 2.5s ease-in-out infinite;
-        }
-
-        .wobble-avatar-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-            filter: drop-shadow(0 0 8px rgba(255, 51, 133, 0.5));
-        }
-
-        @keyframes cuteWobble {
-            0% { transform: rotate(0deg) translateY(0px); }
-            20% { transform: rotate(6deg) translateY(-3px); }
-            40% { transform: rotate(-5deg) translateY(1px); }
-            60% { transform: rotate(4deg) translateY(-2px); }
-            80% { transform: rotate(-3deg) translateY(1px); }
-            100% { transform: rotate(0deg) translateY(0px); }
-        }
-
+        /* 浮動說明框 (Tooltip) */
         #custom-tooltip {
             position: fixed;
             display: none;
-            background: #8f3c73;
-            border: 1px solid #ecbfff;
-            color: #ecbfff;
+            background: var(--win-bg-solid);
+            border: 1px solid var(--c1);
+            color: var(--c1);
             padding: 8px 12px;
             font-size: 0.78rem;
             max-width: 280px;
-            box-shadow: 4px 4px 0px #000, 0 0 10px rgba(143, 60, 115, 0.3);
+            box-shadow: 4px 4px 0px #000, 0 0 10px rgba(255, 51, 133, 0.3);
             z-index: 900;
             pointer-events: none;
             line-height: 1.4;
             white-space: pre-line;
         }
 
+        /* GALGAME 畫面 */
         #galgame-screen {
             display: none;
             position: fixed;
@@ -659,7 +536,7 @@
             background: rgba(3, 5, 12, 0.94);
             z-index: 1001;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
             padding: 20px;
             background-image: 
@@ -673,43 +550,40 @@
             max-width: 680px;
             background: var(--win-bg-solid);
             border: 1px solid var(--c1);
-            padding: 25px 30px;
-            box-shadow: 4px 4px 0px #000, 0 0 25px rgba(255, 51, 133, 0.5);
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(255, 51, 133, 0.4);
             position: relative;
+            cursor: pointer;
         }
 
         .gal-name {
             position: absolute;
-            top: -14px; left: 20px;
+            top: -16px; left: 20px;
             background: var(--c2);
             color: #fff;
-            padding: 2px 14px;
-            font-size: 0.85rem;
-            border: 1px solid var(--c1);
-            letter-spacing: 1px;
+            padding: 2px 12px;
+            font-size: 0.9rem;
+            border: 1px solid #fff;
         }
 
         .gal-text {
-            color: #FF3333; 
-            font-size: 1.05rem;
-            line-height: 1.8;
+            color: var(--c1);
+            font-size: 1rem;
+            line-height: 1.6;
             margin-top: 10px;
-            min-height: 140px;
-            white-space: pre-line;
-            text-shadow: 0 0 4px rgba(255, 0, 0, 0.4);
+            min-height: 60px;
         }
 
         .gal-next-hint {
             text-align: right;
             font-size: 0.8rem;
             color: var(--c2);
-            margin-top: 10px;
             animation: blink 1s infinite;
-            letter-spacing: 1px;
         }
 
         @keyframes blink { 50% { opacity: 0; } }
 
+        /* 響應式排版 */
         @media (max-width: 768px) {
             .content-columns {
                 flex-direction: column;
@@ -722,9 +596,7 @@
 </head>
 <body>
 
-    <!-- DVD 彈跳文字層（嚴格限定只飄出指定句子） -->
-    <div id="dvd-layer"></div>
-
+    <!-- 全域浮動提示框 -->
     <div id="custom-tooltip"></div>
 
     <!-- 1. POPUP 問候彈窗 -->
@@ -735,19 +607,10 @@
                 <span>[X]</span>
             </div>
             <div class="win95-body">
-                <label for="visitor-input"><span>「你是為何來到這裡的？」</span></label>
+                <label for="visitor-input">「你是為何來到這裡的？」</label>
                 <input type="text" id="visitor-input" class="win95-input" placeholder="請在此輸入回答..." autofocus>
                 <button class="win95-btn" onclick="submitAnswer()">[ 送出 / ENTER ]</button>
             </div>
-        </div>
-    </div>
-
-    <!-- 2. GALGAME 遊戲對話框畫面 -->
-    <div id="galgame-screen">
-        <div class="gal-dialog-box" onclick="nextDialog()">
-            <div class="gal-name">SYSTEM</div>
-            <div class="gal-text" id="galText">>>> 系統啟動中...</div>
-            <div class="gal-next-hint">▼ 點擊繼續...</div>
         </div>
     </div>
 
@@ -756,7 +619,7 @@
         <div class="envelope-win">
             <div class="win95-title">
                 <span>淵のオタクソング9選.JPG</span>
-                <span onclick="closeEnvelope()">[X]</span>
+                <span style="cursor: pointer;" onclick="closeEnvelope()">[X]</span>
             </div>
             <div class="envelope-body">
                 <img src="song9.jpg" alt="淵のオタクソング9選" onerror="this.alt='［ 請確認圖片檔名是否為 song9.jpg ］'">
@@ -764,21 +627,21 @@
         </div>
     </div>
 
-    <!-- 3. 主頁層 -->
+    <!-- 2. 主頁層 -->
     <div class="main-screen" id="mainScreen">
         
         <div class="url-bar">https://tusk1991.com</div>
 
+        <!-- 橫幅區塊 -->
         <div class="banner-box">
-            <div class="wobble-avatar-container">
-                <img src="2eeeeeimga.jpg" alt="[ WOBBLE AVATAR ]" onerror="this.style.display='none';">
-            </div>
             <img src="banner.jpg" alt="［ 橫 幅 B A N N E R ］" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
             <span class="banner-placeholder" style="display:none;">［ 請確認橫幅圖檔名是否為 banner.jpg ］</span>
         </div>
 
+        <!-- 雙欄架構 -->
         <div class="content-columns">
             
+            <!-- 左欄：Profile 與主資訊 -->
             <div class="left-col">
                 <div class="profile-container">
                     <div class="pfp-box">
@@ -796,19 +659,12 @@
                         </div>
 
                         <div class="profile-desc">
-                            <p>如果你是以其他名字認識我
-代表你越界了 不應該來這裡
-
-禁止現實認親
-現在左轉離開還來得及
-
-喜歡畫地雷女和長髮創傷男
-喜歡看兩個直男過於親暱曖昧的關係
-
-性別認同是馬鈴薯，偶爾透明掉
-也是傷心欲絕男同性戀
-正在為了成為賽博天使努力
-超級超級愛喝酒</p>
+                            <p>你好，你好。無論你是因為什麼原因來到這裡的，我誠摯地歡迎你。</p>
+                            <p>你可能不小心跌進了某人設下的落穴，或者只是開錯了門扉。</p>
+                            <p>天哪 是誰那麼狠心對你設下陷阱呢?</p>
+                            <p>不過，這裡只是一個存在於虛無書庫中的小型資料庫喔。</p>
+                            <p>角落的東西正在抽搐，不過可以不用理他。</p>
+                            <p>別擔心，這裡沒有時間的概念，也許有出口——隨意逛逛吧。</p>
                         </div>
 
                         <div class="system-log">
@@ -818,336 +674,279 @@
                     </div>
                 </div>
 
+                <!-- Keywords（群青色底板） -->
                 <div class="tag-box">
                     <div class="section-title">// KEYWORDS</div>
                     <div class="tag-grid">
-                        <span class="kv-tag" style="color: #85a1ff;">破破爛爛但真心</span>
-                        <span class="kv-tag" style="color: #85a1ff;">感官重度依賴</span>
-                        <span class="kv-tag" style="color: #85a1ff;">體驗 > 規則</span>
-                        <span class="kv-tag" style="color: #85a1ff;">規則極端體驗型</span>
-                        <span class="kv-tag" style="color: #85a1ff;">手帳 / 剪貼生活</span>
+                        <span class="kv-tag">破破爛爛但真心</span>
+                        <span class="kv-tag">感官重度依賴</span>
+                        <span class="kv-tag">體驗 > 規則</span>
+                        <span class="kv-tag">極端體驗型</span>
+                        <span class="kv-tag">手帳 / 剪貼生活</span>
                     </div>
                 </div>
 
+                <!-- Vibes（群青色底板） -->
                 <div class="tag-box">
                     <div class="section-title">// VIBES</div>
                     <div class="tag-grid">
-                        <span class="vibe-tag" style="color: #85fbff;">天使界隈</span>
-                        <span class="vibe-tag" style="color: #85fbff;">水色系統</span>
-                        <span class="vibe-tag" style="color: #85fbff;">地雷系</span>
-                        <span class="vibe-tag" style="color: #85fbff;">kawaiigore</span>
-                        <span class="vibe-tag" style="color: #85fbff;">gore</span>
-                        <span class="vibe-tag" style="color: #85fbff;">龐克 / 鉚釘</span>
-                        <span class="vibe-tag" style="color: #85fbff;">碎核 / 傷核</span>
-                        <span class="vibe-tag" style="color: #85fbff;">Liminal Space</span>
-                        <span class="vibe-tag" style="color: #85fbff;">Analog Horror</span>
+                        <span class="vibe-tag">天使界隈</span>
+                        <span class="vibe-tag">水色系統</span>
+                        <span class="vibe-tag">地雷系</span>
+                        <span class="vibe-tag">kawaiigore</span>
+                        <span class="vibe-tag">gore</span>
+                        <span class="vibe-tag">龐克 / 鉚釘</span>
+                        <span class="vibe-tag">碎核 / 傷核</span>
+                        <span class="vibe-tag">Liminal Space</span>
+                        <span class="vibe-tag">Analog Horror</span>
                     </div>
                 </div>
 
-                <div class="detail-box">
-                    <div class="section-title">// ABOUT ME / VIBE LOG</div>
-                    <p>喜歡搞創作
-各種形式的
-尤愛破破爛爛 手工的 卻又真心</p>
-
-                    <p>超極端體驗型學習人
-會先上手摸摸再去學習規則</p>
-
-                    <p>重度筆記本愛好者，會蒐集各種漂亮筆記本但從不使用
-喜歡紙筆書寫勝於打字
-會做手帳還有一些剪剪貼貼來記錄生活
-無論是發票 票根 便利貼 包裝紙 地上的羽毛
-任何有意義的東西都會出現在我的剪貼本本上</p>
-
-                    <p>感官重度依賴人類 精神不太正常</p>
-
-                    <p>✧.*重視體驗>規則
-我玩遊戲重視體驗，也重視同樂，尤其是合作遊戲
-希望你跟我玩是抱持著和朋友一起開心玩遊戲而非做到完美通關</p>
-
-                    <p>喜歡藍色
-喜歡天使界隈 水色系統
-喜歡所有與天使有關的東西</p>
-
-                    <p>╰┈➤喜歡閃亮亮、可愛、斷裂、痛苦又虛無的東西</p>
-
-                    <p>⋆𐙚₊˚⊹會愛上各種金屬飾品、亮晶晶繁瑣、星星、刮鬍刀片、奶蓋、庫洛米、御守、有的沒有的......♡ ༊·
-喜歡地雷系、天使界隈、 龐克、 夢核 、 傷核 、 碎核、kawaiigore......</p>
-
-                    <p>留言頻繁＝自動發出「一起玩」邀請函
-計畫三秒，執行一個月的人
-有時候一秒內換三個話題，跟我聊天可以放空就好</p>
-
-                    <div class="detail-divider">┊ ✩ ┊ ✧ ┊ ┊ ┊ ┊★ ┊ ✩⋆ ┊ ┊ ⊹˚ ⁭ ⁭ ⁭ ⁭ ⁭ ⁭ ⁭ ⁭ ⁭ ✩⋆ ✮</div>
-                </div>
-
+                <!-- Don't -->
                 <div class="dont-box">
                     <h3>DON'T :</h3>
                     <ul>
-                        <li>推坑／安利米哈遊相關內容</li>
-                        <li>如果是米家/鳴潮/第5人請先迴避因為我討厭還會往死裡罵，請不要對我貼臉相關資訊。</li>
-                        <li>私下推銷你家夢向, 如果真的好吃我會主動吃的 請不要餵食我</li>
+                        <li><strong>推坑／安利米哈遊相關內容：</strong>我不喜歡米哈遊，請不要對我貼臉相關資訊。</li>
+                        <li>在還沒認識彼此就開過度熟識的玩笑。</li>
                         <li>傳給我屌照 / 竹節蟲 / 大拇指等奇怪的東西。</li>
-                        <li>這隻是網圈帳 基本不加現實好友</li>
-                        <li>討厭抄襲描圖、討厭台人簡字</li>
-                        <li>過度打擾我,我是究極I人,我需要自己的空間</li>
                     </ul>
+                </div>
+
+                <!-- Ready & Start -->
+                <div class="start-section">
+                    <div class="ready-text">Ready ?</div>
+                    <button class="start-btn" onclick="startGame()">[ START ]</button>
                 </div>
             </div>
 
-            <!-- 右側欄位群組 -->
+            <!-- 右欄：坑清單 -->
             <div class="right-col">
-                <div class="fandom-container">
-                    <div class="section-title">// FANDOMS & INTERESTS</div>
-                    <div class="fandom-list">
-                        <div class="fandom-item" data-tooltip="chunithm / maimai 都有摸（比較常打中二，爾偶摸女武神跟太鼓達人）&#10;プロセカ：主推奏、25時團推&#10;Phigros / Cytus 1&2（剛重載回來重打進度）&#10;還有很多想不起來先這樣！">音遊</div>
-                        <div class="fandom-item" data-tooltip="超級超級爵銀龍激推！喜歡爵銀水仙&#10;World / Rise / Wilds / Now 都涉獵&#10;歡迎來約打！貓叫麻葉&#10;武器：弓 / 蟲棍&#10;近期待在新大陸忙著重建虛黑城">魔物獵人</div>
-                        <div class="fandom-item" data-tooltip="劇情全補完，不用擔心暴雷！&#10;吃女同 & JayVic（左右位可換）&#10;但我沒打 LOL，不想死媽。">奧術</div>
-                        <div class="fandom-item" data-tooltip="正在建構宏觀世界觀(挖坑)">原創</div>
-                        <div class="fandom-item" data-tooltip="其實進度沒玩很多，也不是打牌好手，爾偶會上線吧～">巫師3 (蹭我朋友的遊戲庫)</div>
-                        <div class="fandom-item" data-tooltip="天空之劍 ｜ 曠野之息 ｜ 王國之淚 ｜ 災厄啟示錄&#10;CP 都吃歡迎安利我！&#10;喜歡加儂時林 / 林克水仙">薩爾達系列</div>
-                        <div class="fandom-item" data-tooltip="我不吃 madoponi 和 mado X masada 愛情向，&#10;喜歡モノ姐妹。">夢日記 / ゆめにっき / ゆめ2っき</div>
-                        <div class="fandom-item" data-tooltip="近期中毒遊玩地雷女模擬器。">主播女孩重度依賴</div>
-                        <div class="fandom-item" data-tooltip="濃度很高！主推凜&#10;all明都吃，也喜歡處刑人組和式凜&#10;除了怪怪拉郎以外都吃">咎狗之血</div>
-                        <div class="fandom-item" data-tooltip="主推諾伊茲&#10;CP 喜歡諾蒼和雀椅&#10;劇情有生之年會補完">戲劇性謀殺 (DMMd)</div>
-                        <div class="fandom-item" data-tooltip="特別特別喜歡 G 向的部分，二創圖也會有&#10;雷者請自行避雷！">沙耶之歌</div>
-                        <div class="fandom-item" data-tooltip="王子季入坑，表演季無斷至梵谷季&#10;出沒時間 in 饅頭季前後&#10;有養一隻飛行季出生的無翼，多半在掛機養老&#10;互火/好友隨時歡迎，請主動丟代碼 (備註隨意)">光遇</div>
-                        <div class="fandom-item" data-tooltip="雖然很少上線了，但很喜歡這樣消磨時間">星露谷物語</div>
-                        <div class="fandom-item" data-tooltip="主推紅傘！&#10;不喜歡乙女腐">文字化化</div>
-                        <div class="fandom-item" data-tooltip="近期有看完的新番！&#10;喜歡動畫的風格與運鏡，原畫也是屌得沒話說">坂本日常</div>
-                        <div class="fandom-item" data-tooltip="動畫看一半、遊戲摸一點（卡在第二季一半）&#10;主推 Yumoto">美男高校地球防衛部LOVE</div>
-                        <div class="fandom-item" data-tooltip="Dead Plate">死盤子！會在場次收周邊的程度</div>
-                        <div class="fandom-item" data-tooltip="就是那種一下有一坨人上線熬夜爆肝，&#10;一下大家都消失的遊戲（近期處於後者）">MC</div>
-                        <div class="fandom-item" data-tooltip="大部分 P 主都聽聽&#10;咪哭一生推！">术力口</div>
-                        <div class="fandom-item" data-tooltip="小資歷調查員&#10;只跑過毒湯、故鄉幻影、朋友自己寫的本">TRPG (跑團)</div>
-                        <div class="fandom-item" data-tooltip="這個人太值得我自己開一篇來講了！&#10;無論遊戲, 3D 還是音樂，這傢伙都是個天才！&#10;超愛 GO GOME 和夜詛&#10;目前正在瘋狂循環【ミッドノクターン】和【はい、そうです。】">市松寿ゞ謡</div>
-                        <div class="fandom-item" data-tooltip="我一直在哭男同性戀">九龍大眾浪漫</div>
-                    </div>
-
-                    <div class="envelope-item" onclick="openEnvelope()" data-tooltip="點擊開啟：淵のオタクソング9選">
-                        ✉ [ SECRET ENVELOPE ]
-                    </div>
+                <div class="section-title">// FANDOMS & INTERESTS</div>
+                <div class="fandom-list">
+                    <div class="fandom-item" data-tooltip="chunithm / maimai 都有摸（比較常打中二，偶爾摸女武神跟太鼓達人）&#10;プロセカ：主推奏、25時團推&#10;Phigros / Cytus 1&2（剛重載回來重打進度）&#10;還有很多想不起來先這樣！">音遊</div>
+                    <div class="fandom-item" data-tooltip="超級超級爵銀龍激推！喜歡爵銀水仙&#10;World / Rise / Wilds / Now 都涉獵&#10;歡迎來約打！貓叫麻葉&#10;武器：弓 / 蟲棍&#10;近期待在新大陸忙著重建虛黑城">魔物獵人</div>
+                    <div class="fandom-item" data-tooltip="劇情全補完，不用擔心暴雷！&#10;吃女同 & JayVic（左右位可換）&#10;但我沒打 LOL，不想死媽。">奧術</div>
+                    <div class="fandom-item" data-tooltip="體裁包含原創世界觀、設定集中頁面">原創</div>
+                    <div class="fandom-item" data-tooltip="其實進度沒玩很多，也不是打牌好手，偶爾會上線吧～">巫師3 (蹭我朋友的遊戲庫)</div>
+                    <div class="fandom-item" data-tooltip="天空之劍 ｜ 曠野之息 ｜ 王國之淚 ｜ 災厄啟示錄&#10;CP 都吃歡迎安利我！&#10;喜歡加儂時林 / 林克水仙">薩爾達系列</div>
+                    <div class="fandom-item" data-tooltip="我不吃 madoponi 和 mado X masada 愛情向，&#10;喜歡モノ姐妹。">夢日記 / ゆめにっき / ゆめ2っき</div>
+                    <div class="fandom-item" data-tooltip="近期中毒遊玩地雷女模擬器。">主播女孩重度依賴</div>
+                    <div class="fandom-item" data-tooltip="濃度很高！主推凜&#10;all明都吃，也喜歡處刑人組和式凜&#10;除了怪怪拉郎以外都吃">咎狗之血</div>
+                    <div class="fandom-item" data-tooltip="主推諾伊茲&#10;CP 喜歡諾蒼和雀椅&#10;劇情有生之年會補完">戲劇性謀殺 (DMMd)</div>
+                    <div class="fandom-item" data-tooltip="特別特別喜歡 G 向的部分，二創圖也會有&#10;雷者請自行避雷！">沙耶之歌</div>
+                    <div class="fandom-item" data-tooltip="王子季入坑，表演季無斷至梵谷季&#10;出沒時間在饅頭季前後&#10;有養一隻飛行季出生的無翼，多半在掛機養老&#10;互火/好友隨時歡迎，請主動丟代碼 (備註隨意)">光遇</div>
+                    <div class="fandom-item" data-tooltip="雖然很少上線了，但很喜歡這樣消磨時間">星露谷物語</div>
+                    <div class="fandom-item" data-tooltip="主推紅傘！&#10;不喜歡乙女腐">文字化化</div>
+                    <div class="fandom-item" data-tooltip="近期有看完的新番！&#10;喜歡動畫的風格與運鏡，原畫也是屌得沒話說">坂本日常</div>
+                    <div class="fandom-item" data-tooltip="動畫看一半、遊戲摸一點（卡在第二季一半）&#10;主推 Yumoto">美男高校地球防衛部LOVE</div>
+                    <div class="fandom-item" data-tooltip="死盤子！會在場次收周邊的程度">Dead Plate</div>
+                    <div class="fandom-item" data-tooltip="就是那種一下有一坨人上線熬夜爆肝，&#10;一下大家都消失的遊戲（近期處於後者）">MC</div>
+                    <div class="fandom-item" data-tooltip="大部分 P 主都聽聽&#10;咪哭一生推！">Vocaloid (初音未來 / 鏡音雙子等)</div>
+                    <div class="fandom-item" data-tooltip="小資歷調查員&#10;只跑過毒湯、故鄉幻影、朋友自己寫的本">TRPG (跑團)</div>
+                    <div class="fandom-item" data-tooltip="這個人太值得我自己開一篇來講了！&#10;無論遊戲、3D 還是音樂，這傢伙都是個天才！&#10;超愛 GO GOME 和夜詛&#10;目前正在瘋狂循環【ミッドノクターン】和【はい、そうです。】">市松寿ゞ謡</div>
                 </div>
 
-                <!-- 也看看我們吧 (賭場閃爍廣告風格區塊) -->
-                <div class="casino-container">
-                    <div class="section-title">// 也看看我們吧</div>
-                    <div class="casino-list">
-                        <a href="#" target="_blank" class="casino-ad-btn">★ 點我進入 實驗站 01 🚀</a>
-                        <a href="#" target="_blank" class="casino-ad-btn">🔥 恭喜中獎！點擊前往 秘密空間 💰</a>
-                    </div>
-                </div>
-
-                <!-- SNS 傳送門區塊：4個按鈕（前三正常，第四個X超大力逃跑且無功能） -->
-                <div class="social-links-box">
-                    <div class="section-title">// SNS傳送門</div>
-                    <div class="social-list">
-                        <a href="https://www.facebook.com/remdel3314" target="_blank" class="social-link-item">( FB )</a>
-                        <a href="https://www.instagram.com/tuskk991/" target="_blank" class="social-link-item">( IG )</a>
-                        <a href="https://x.com/tuskk991" target="_blank" class="social-link-item">( X )</a>
-                        <a href="javascript:void(0);" class="social-link-item runaway" id="runawayBtn">( X )</a>
-                    </div>
+                <!-- 點開的信封按鈕 -->
+                <div class="envelope-item" onclick="openEnvelope()" data-tooltip="點擊開啟：淵のオタクソング9選">
+                    ✉ [ SECRET ENVELOPE ]
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- 網頁互動 JS 邏輯 -->
-    <script>
-        let visitorReason = "";
-        
-        // 將指定的文字拆成多段，對應 Galgame 點擊逐步顯示
-        const galDialogs = [
-            "你好，你好。無論你是因為什麼原因來到這裡的，我誠摯地歡迎你。",
-            "你可能不小心跌進了某人設下的落穴，或者只是開錯了門。",
-            "天哪 是誰那麼狠心對你設下陷阱呢?",
-            "不過，這裡只是一個存在於虛無書庫中的小型資料庫喔。",
-            "角落的東西正在抽搐，不過可以不用理他。",
-            "別擔心，這裡沒有時間的概念，也許有出口——隨意逛逛吧"
-        ];
-        let currentGalIndex = 0;
+    <!-- 3. GALGAME 遊戲對話框畫面 -->
+    <div id="galgame-screen">
+        <div class="gal-dialog-box">
+            <div class="gal-name">SYSTEM</div>
+            <div class="gal-text" id="galText">>>> 系統啟動中...</div>
+            <div class="gal-next-hint">▼ 點擊繼續...</div>
+        </div>
+    </div>
 
+    <script>
+        let secondsPassed = 0;
+        let timerInterval = null;
+
+        function playSFX(type) {}
+        function playBGM() {}
+
+        // 1. 處理 Pop-up 輸入與開始計時
         function submitAnswer() {
-            const input = document.getElementById("visitor-input");
-            const val = input.value.trim();
-            if(!val) {
-                input.style.borderColor = "#FF0000";
-                return;
+            playSFX('click');
+            const input = document.getElementById('visitor-input').value.trim();
+            const logDisplay = document.getElementById('visitorLog');
+            const overlay = document.getElementById('modal-overlay');
+            const main = document.getElementById('mainScreen');
+
+            if(input !== "") {
+                logDisplay.innerText = `> 訪客動機紀錄：「${input}」`;
+            } else {
+                logDisplay.innerText = `> 訪客動機紀錄：[未輸入 - 迷路的訪客]`;
             }
-            visitorReason = val;
-            document.getElementById("visitorLog").innerText = `> 訪客動機紀錄：${visitorReason}`;
-            document.getElementById("modal-overlay").style.display = "none";
-            document.getElementById("galgame-screen").style.display = "flex";
-            showGalDialog();
+
+            overlay.style.display = 'none';
+            main.classList.add('unlocked');
+
+            startTimer();
+            playBGM();
         }
 
-        document.getElementById("visitor-input").addEventListener("keypress", function(e) {
-            if(e.key === "Enter") {
+        function startTimer() {
+            if (timerInterval) return;
+            const timerDisplay = document.getElementById('visitTimer');
+            timerInterval = setInterval(() => {
+                secondsPassed++;
+                timerDisplay.innerText = `> 停留時間：${secondsPassed} 秒`;
+            }, 1000);
+        }
+
+        document.getElementById('visitor-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
                 submitAnswer();
             }
         });
 
-        function showGalDialog() {
-            if(currentGalIndex < galDialogs.length) {
-                document.getElementById("galText").innerText = galDialogs[currentGalIndex];
-            } else {
-                document.getElementById("galgame-screen").style.display = "none";
-                document.getElementById("mainScreen").classList.add("unlocked");
-                startTimer();
-            }
-        }
+        // 2. 自訂 Hover Tooltip
+        const tooltip = document.getElementById('custom-tooltip');
+        const fandomItems = document.querySelectorAll('.fandom-item, .envelope-item');
 
-        function nextDialog() {
-            currentGalIndex++;
-            showGalDialog();
-        }
+        fandomItems.forEach(item => {
+            item.addEventListener('mouseenter', (e) => {
+                const text = item.getAttribute('data-tooltip');
+                if(text) {
+                    tooltip.innerText = text;
+                    tooltip.style.display = 'block';
+                }
+            });
 
+            item.addEventListener('mousemove', (e) => {
+                tooltip.style.left = (e.clientX + 15) + 'px';
+                tooltip.style.top = (e.clientY + 15) + 'px';
+            });
+
+            item.addEventListener('mouseleave', () => {
+                tooltip.style.display = 'none';
+            });
+        });
+
+        // 3. 信封 Modal 開關邏輯
         function openEnvelope() {
-            document.getElementById("envelope-overlay").style.display = "flex";
+            playSFX('click');
+            document.getElementById('envelope-overlay').style.display = 'flex';
         }
 
         function closeEnvelope() {
-            document.getElementById("envelope-overlay").style.display = "none";
+            playSFX('click');
+            document.getElementById('envelope-overlay').style.display = 'none';
         }
 
-        let seconds = 0;
-        function startTimer() {
-            setInterval(() => {
-                seconds++;
-                document.getElementById("visitTimer").innerText = `> 停留時間：${seconds} 秒`;
-            }, 1000);
-        }
-
-        // TOOLTIP 懸停提示處理
-        const tooltip = document.getElementById("custom-tooltip");
-        document.querySelectorAll("[data-tooltip]").forEach(item => {
-            item.addEventListener("mouseenter", (e) => {
-                const text = item.getAttribute("data-tooltip");
-                if(text) {
-                    tooltip.innerText = text;
-                    tooltip.style.display = "block";
-                }
-            });
-            item.addEventListener("mousemove", (e) => {
-                tooltip.style.left = (e.clientX + 15) + "px";
-                tooltip.style.top = (e.clientY + 15) + "px";
-            });
-            item.addEventListener("mouseleave", () => {
-                tooltip.style.display = "none";
-            });
-        });
-
-        // 飄動文字特效：嚴格限定只飄出指定句子
-        const dvdLayer = document.getElementById("dvd-layer");
-
-        function spawnDvdText() {
-            const el = document.createElement("div");
-            el.className = "dvd-text-item";
-            el.innerText = "The angel is watching you.";
-            
-            let posX = Math.random() * (window.innerWidth - 250);
-            let posY = Math.random() * (window.innerHeight - 50);
-            let velX = (Math.random() - 0.5) * 1.5;
-            let velY = (Math.random() - 0.5) * 1.5;
-            if(Math.abs(velX) < 0.3) velX = 0.5;
-            if(Math.abs(velY) < 0.3) velY = 0.5;
-
-            el.style.left = posX + "px";
-            el.style.top = posY + "px";
-            dvdLayer.appendChild(el);
-
-            function move() {
-                posX += velX;
-                posY += velY;
-                if(posX <= 0 || posX >= window.innerWidth - 250) velX *= -1;
-                if(posY <= 0 || posY >= window.innerHeight - 30) velY *= -1;
-
-                el.style.left = posX + "px";
-                el.style.top = posY + "px";
-                requestAnimationFrame(move);
+        document.getElementById('envelope-overlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEnvelope();
             }
-            requestAnimationFrame(move);
-
-            setTimeout(() => {
-                el.style.transition = "opacity 2s";
-                el.style.opacity = "0";
-                setTimeout(() => el.remove(), 2000);
-            }, 8000);
-        }
-
-        setInterval(spawnDvdText, 3500);
-
-        // 第四個按鈕專屬：超大力逃跑、永遠點不到、完全無功能
-        const runawayBtn = document.getElementById("runawayBtn");
-        let currentX = 0;
-        let currentY = 0;
-
-        if(runawayBtn) {
-            runawayBtn.addEventListener("click", (e) => {
-                e.preventDefault();
-            });
-
-            runawayBtn.addEventListener("mousemove", (e) => {
-                const rect = runawayBtn.getBoundingClientRect();
-                const btnCenterX = rect.left + rect.width / 2;
-                const btnCenterY = rect.top + rect.height / 2;
-
-                const distanceX = e.clientX - btnCenterX;
-                const distanceY = e.clientY - btnCenterY;
-                
-                const threshold = 180; 
-                const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-
-                if (distance < threshold) {
-                    const pushFactor = 3.2;
-                    currentX -= (distanceX / distance) * (threshold - distance) * pushFactor;
-                    currentY -= (distanceY / distance) * (threshold - distance) * pushFactor;
-
-                    const maxRange = 260; 
-                    currentX = Math.max(-maxRange, Math.min(maxRange, currentX));
-                    currentY = Math.max(-maxRange, Math.min(maxRange, currentY));
-
-                    runawayBtn.style.transform = `translate(${currentX}px, ${currentY}px)`;
-                }
-            });
-        }
-
-        // 點擊滑鼠特效：產生飄散的小愛心
-        document.addEventListener('click', function(e) {
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
-
-            const heart = document.createElement('div');
-            heart.innerHTML = '♥';
-            heart.style.position = 'fixed';
-            heart.style.left = e.clientX + 'px';
-            heart.style.top = e.clientY + 'px';
-            heart.style.color = Math.random() > 0.5 ? '#FF3385' : '#00FFFF';
-            heart.style.fontSize = '1.2rem';
-            heart.style.fontWeight = 'bold';
-            heart.style.pointerEvents = 'none';
-            heart.style.zIndex = '99999';
-            heart.style.userSelect = 'none';
-            
-            heart.style.transition = 'transform 0.8s ease-out, opacity 0.8s ease-out';
-            heart.style.transform = 'translate(-50%, -50%) scale(1)';
-            
-            document.body.appendChild(heart);
-
-            const angle = Math.random() * Math.PI * 2;
-            const distance = 40 + Math.random() * 40;
-            const targetX = Math.cos(angle) * distance;
-            const targetY = Math.sin(angle) * distance;
-
-            requestAnimationFrame(() => {
-                heart.style.transform = `translate(calc(-50% + ${targetX}px), calc(-50% + ${targetY}px)) scale(0.4) rotate(${Math.random() * 60 - 30}deg)`;
-                heart.style.opacity = '0';
-            });
-
-            setTimeout(() => {
-                heart.remove();
-            }, 800);
         });
-    </script>
+
+        // 4. Galgame 遊戲邏輯與打字機效果
+        const dialogs = [
+            "「警報：未知的使用者存取了這段記憶鏈結。」",
+            "「正在進行讀取... 請注意，眼前看到的畫面可能包含大量的電波與分神碎屑。」",
+            "「既然你已經來到了這裡，就請慢慢探索吧。」",
+            "「祝你有個愉快的一天。遊戲... 即將開始。」"
+        ];
+        
+        let currentStep = 0;
+        let typingTimer = null;
+        let isTyping = false;
+
+        function startGame() {
+            playSFX('click');
+            document.getElementById('galgame-screen').style.display = 'flex';
+            currentStep = 0;
+            showDialog();
+        }
+
+        function showDialog() {
+            const galText = document.getElementById('galText');
+            if(currentStep < dialogs.length) {
+                typeWriter(galText, dialogs[currentStep], 40);
+            } else {
+                document.getElementById('galgame-screen').style.display = 'none';
+            }
+        }
+
+        function typeWriter(element, text, speed) {
+            clearInterval(typingTimer);
+            element.innerText = "";
+            let index = 0;
+            isTyping = true;
+
+            typingTimer = setInterval(() => {
+                if (index < text.length) {
+                    element.innerText += text.charAt(index);
+                    index++;
+                    playSFX('typewriter');
+                } else {
+                    clearInterval(typingTimer);
+                    isTyping = false;
+                }
+            }, speed);
+        }
+
+        document.getElementById('galgame-screen').addEventListener('click', () => {
+            const galText = document.getElementById('galText');
+            playSFX('click');
+            if (isTyping) {
+                clearInterval(typingTimer);
+                galText.innerText = dialogs[currentStep];
+                isTyping = false;
+            } else {
+                currentStep++;
+                showDialog();
+            }
+        });
+    </// ==========================================
+// 點擊滑鼠特效：產生飄散的小愛心與文字碎屑
+// ==========================================
+document.addEventListener('click', function(e) {
+    // 排除點擊輸入框或特定按鈕時的干擾
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+
+    // 建立愛心特效元素
+    const heart = document.createElement('div');
+    heart.innerHTML = '♥';
+    heart.style.position = 'fixed';
+    heart.style.left = e.clientX + 'px';
+    heart.style.top = e.clientY + 'px';
+    heart.style.color = Math.random() > 0.5 ? '#FF3385' : '#00FFFF'; // 隨機粉色或霓虹藍
+    heart.style.fontSize = '1.2rem';
+    heart.style.fontWeight = 'bold';
+    heart.style.pointerEvents = 'none';
+    heart.style.zIndex = '99999';
+    heart.style.userSelect = 'none';
+    
+    // 動態加入 CSS 動畫效果
+    heart.style.transition = 'transform 0.8s ease-out, opacity 0.8s ease-out';
+    heart.style.transform = 'translate(-50%, -50%) scale(1)';
+    
+    document.body.appendChild(heart);
+
+    // 隨機飄散的方向
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 40 + Math.random() * 40;
+    const targetX = Math.cos(angle) * distance;
+    const targetY = Math.sin(angle) * distance;
+
+    // 強制觸發重繪後執行動畫
+    requestAnimationFrame(() => {
+        heart.style.transform = `translate(calc(-50% + ${targetX}px), calc(-50% + ${targetY}px)) scale(0.4) rotate(${Math.random() * 60 - 30}deg)`;
+        heart.style.opacity = '0';
+    });
+
+    // 動畫結束後自動移除元素
+    setTimeout(() => {
+        heart.remove();
+    }, 800);
+});>
 </body>
 </html>
